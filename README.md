@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TP2 - Library Management
 
 A Java library management application developed using Maven.
@@ -18,3 +19,6 @@ A Java library management application developed using Maven.
 
 
 Project description: Library management system developed using Java and Maven.
+=======
+Project description: A Java-based Library Management System developed using Java and Maven. It manages books, copies, members, and loans.
+>>>>>>> feature/search

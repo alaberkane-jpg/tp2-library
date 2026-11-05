@@ -139,6 +139,19 @@ public class Library {
 
         throw new IllegalArgumentException("No open loan found for this copy");
     }
+    
+    public List<Book> searchByTitle(String keyword) {
+        List<Book> results = new ArrayList<>();
+
+        for (Book book : books) {
+            if (book.getTitle().toLowerCase()
+                    .contains(keyword.toLowerCase())) {
+                results.add(book);
+            }
+        }
+
+        return results;
+    }
 }
 
 

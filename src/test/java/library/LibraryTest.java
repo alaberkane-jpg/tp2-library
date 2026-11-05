@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.util.List;
 public class LibraryTest {
 
     private Library library;
@@ -78,5 +78,32 @@ public class LibraryTest {
         assertThrows(IllegalStateException.class, () -> {
             library.lendCopy(6, 101, LocalDate.of(2026, 11, 5));
         });
+    }
+    
+    
+    
+    
+    
+    @Test
+    public void testSearchByTitle() {
+        List<Book> results = library.searchByTitle("Java");
+
+        assertEquals(1, results.size());
+        assertEquals("Java Programming", results.get(0).getTitle());
+    }
+
+    @Test
+    public void testSearchByTitleIgnoreCase() {
+        List<Book> results = library.searchByTitle("JAVA");
+
+        assertEquals(1, results.size());
+        assertEquals("Java Programming", results.get(0).getTitle());
+    }
+
+    @Test
+    public void testSearchByTitleNotFound() {
+        List<Book> results = library.searchByTitle("Python");
+
+        assertTrue(results.isEmpty());
     }
 }
