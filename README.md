@@ -1,0 +1,1 @@
+Project description: A Java-based application for managing books, copies, members, and loans.
