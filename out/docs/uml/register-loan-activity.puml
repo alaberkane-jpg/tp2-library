@@ -1,0 +1,71 @@
+@startuml
+!pragma layout smetana
+
+|Librarian|
+start
+
+:Scan member card;
+
+if (Card readable?) then (yes)
+else (no)
+    :Enter member number;
+endif
+
+' ===== STEP 2: DISPLAY MEMBER INFORMATION =====
+|System|
+:Display member information\nand current loans;
+
+' ===== STEP 3: CHECK BORROWING RIGHTS =====
+:Check borrowing rights;
+
+if (Rights accepted?) then (yes)
+
+else (no)
+    :Display refusal reason;
+    stop
+endif
+
+' ===== STEPS 4 AND 5: PROCESS COPIES =====
+repeat
+
+    |Librarian|
+    :Scan barcode of a copy;
+
+    if (Barcode readable?) then (yes)
+    else (no)
+        :Enter inventory number;
+    endif
+
+    |System|
+    :Check copy availability\nand reservation status;
+
+    if (Copy reserved for another member?) then (yes)
+        :Refuse this copy;
+        :Display reservation information;
+    else (no)
+        :Record the loan with a\ndue date 14 days later;
+        :Mark the copy as borrowed;
+    endif
+
+repeat while (Another copy?) is (yes) not (no)
+
+' ===== STEP 7: END TRANSACTION =====
+|Librarian|
+:End the transaction;
+
+' ===== STEP 8: PRINT RECEIPT =====
+|System|
+:Print receipt with copies\nand their due dates;
+
+stop
+
+note right
+  Exception 7a:
+  At any time, if the database
+  connection is lost:
+  - Cancel the loan in progress.
+  - Display an error.
+  - Keep already confirmed loans.
+end note
+
+@enduml

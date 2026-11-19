@@ -1,0 +1,37 @@
+
+@startuml
+!pragma layout smetana
+
+|Librarian|
+start
+
+:Receive the returned copy;
+:Scan the copy barcode;
+
+|System|
+:Find the corresponding open loan;
+:Check the return date;
+
+if (Return late?) then (yes)
+    :Activate extension point\nlate return;
+    :Execute UC-08 Suspend the member;
+else (no)
+    :Continue normal return;
+endif
+
+:Close the loan;
+:Record the return date;
+
+if (Book reserved?) then (yes)
+    :Keep the copy aside;
+    :Identify the member who reserved it;
+    :Notify the reserved member;
+else (no)
+    :Mark the copy as available;
+endif
+
+|Librarian|
+:Finish the return transaction;
+
+stop
+@enduml
